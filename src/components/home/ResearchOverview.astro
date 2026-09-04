@@ -1,0 +1,241 @@
+<section class="research-section">
+  <div class="container">
+
+    <header class="section-header">
+      <div>
+        <p class="eyebrow">Research</p>
+
+        <h2>
+          Computing systems that remain
+          <span>intelligent, dependable, and secure.</span>
+        </h2>
+      </div>
+
+      <p class="section-intro">
+        Our work spans distributed computing, edge intelligence,
+        trustworthy systems, and cybersecurity, with an emphasis on
+        systems that operate reliably in complex real-world environments.
+      </p>
+    </header>
+
+    <div class="research-list">
+
+      <a class="research-row" href="./research/">
+        <span class="number">01</span>
+
+        <div class="research-content">
+          <h3>Edge Intelligence</h3>
+          <p>
+            Intelligent computing near data sources for responsive,
+            resource-aware, and real-time decision making.
+          </p>
+        </div>
+
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="research-row" href="./research/">
+        <span class="number">02</span>
+
+        <div class="research-content">
+          <h3>Distributed Systems</h3>
+          <p>
+            Architectures and mechanisms for resilient computation
+            across edge, cloud, and networked infrastructures.
+          </p>
+        </div>
+
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="research-row" href="./research/">
+        <span class="number">03</span>
+
+        <div class="research-content">
+          <h3>Trustworthy Computing</h3>
+          <p>
+            Systems designed to preserve reliability, integrity,
+            and dependable operation under changing conditions.
+          </p>
+        </div>
+
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="research-row" href="./research/">
+        <span class="number">04</span>
+
+        <div class="research-content">
+          <h3>Cybersecurity</h3>
+          <p>
+            Security mechanisms and policy-driven approaches for
+            modern networked and cyberinfrastructure environments.
+          </p>
+        </div>
+
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+    </div>
+
+    <div class="section-footer">
+      <a href="./research/">
+        Explore all research
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .research-section {
+    background: var(--color-text);
+    color: var(--color-bg);
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(5rem, 8vw, 8rem);
+  }
+
+  .eyebrow {
+    margin-bottom: 2rem;
+    color: #91a7ff;
+  }
+
+  h2 {
+    max-width: 880px;
+    font-size: clamp(2.8rem, 5vw, 5.2rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  h2 span {
+    color: #8f949d;
+  }
+
+  .section-intro {
+    color: #afb4bd;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .research-list {
+    border-top: 1px solid #343841;
+  }
+
+  .research-row {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr) 40px;
+    gap: 2rem;
+    align-items: start;
+    padding-block: clamp(2rem, 3vw, 3rem);
+    border-bottom: 1px solid #343841;
+    transition:
+      padding-inline var(--transition-base),
+      background var(--transition-base);
+  }
+
+  .research-row:hover {
+    padding-inline: 1.25rem;
+    background: #17191e;
+  }
+
+  .number {
+    padding-top: 0.35rem;
+    color: #777d88;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .research-content {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.9fr) minmax(280px, 1.1fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: start;
+  }
+
+  h3 {
+    font-size: clamp(1.6rem, 2.3vw, 2.4rem);
+    font-weight: 650;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+  }
+
+  .research-content p {
+    max-width: 560px;
+    color: #a8adb6;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .arrow {
+    padding-top: 0.15rem;
+    font-size: 1.3rem;
+    transition: transform var(--transition-fast);
+  }
+
+  .research-row:hover .arrow {
+    transform: translate(4px, -4px);
+  }
+
+  .section-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 2.5rem;
+  }
+
+  .section-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .section-footer span {
+    transition: transform var(--transition-fast);
+  }
+
+  .section-footer a:hover span {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .section-intro {
+      max-width: 650px;
+    }
+
+    .research-content {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .research-row {
+      grid-template-columns: 35px 1fr 24px;
+      gap: 1rem;
+    }
+
+    .research-row:hover {
+      padding-inline: 0;
+      background: transparent;
+    }
+
+    .research-content p {
+      font-size: 0.9rem;
+    }
+  }
+</style>

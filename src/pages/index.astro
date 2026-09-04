@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import ResearchOverview from '../components/home/ResearchOverview.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import SelectedPublications from '../components/home/SelectedPublications.astro';
+import PeopleOverview from '../components/home/PeopleOverview.astro';
+import LatestNews from '../components/home/LatestNews.astro';
+import JoinCTA from '../components/home/JoinCTA.astro';
+---
+
+<BaseLayout
+  title="DiSSect Lab"
+  description="Distributed Systems and Security Laboratory at CUNY. Research in intelligent, resilient, and trustworthy distributed computing systems."
+>
+  <Hero />
+  <ResearchOverview />
+  <FeaturedProjects />
+  <SelectedPublications />
+  <PeopleOverview />
+  <LatestNews />
+  <JoinCTA />
+</BaseLayout>

@@ -1,0 +1,235 @@
+---
+import { getCollection } from 'astro:content';
+
+const newsItems = (await getCollection('news'))
+  .filter((item) => item.data.featured)
+  .sort(
+    (a, b) =>
+      b.data.date.getTime() - a.data.date.getTime()
+  );
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  }).format(date);
+---
+
+<section class="news-section">
+  <div class="container">
+
+    <header class="news-header">
+      <div>
+        <p class="eyebrow">Latest from the Lab</p>
+
+        <h2>
+          Research moves.{' '}
+          <span>So do we.</span>
+        </h2>
+      </div>
+
+      <p class="intro">
+        Publications, milestones, awards, and updates
+        from the DiSSect community.
+      </p>
+    </header>
+
+    <div class="news-grid">
+      {
+        newsItems.map((item, index) => {
+          const content = (
+            <>
+              <div class="news-meta">
+                <span>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <span>{item.data.category}</span>
+
+                <time datetime={item.data.date.toISOString()}>
+                  {formatDate(item.data.date)}
+                </time>
+              </div>
+
+              <h3>{item.data.title}</h3>
+
+              {
+                item.data.summary && (
+                  <p>{item.data.summary}</p>
+                )
+              }
+
+              {
+                item.data.externalUrl && (
+                  <span class="news-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                )
+              }
+            </>
+          );
+
+          return item.data.externalUrl ? (
+            <a
+              class="news-item"
+              href={item.data.externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {content}
+            </a>
+          ) : (
+            <article class="news-item">
+              {content}
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <footer class="news-footer">
+      <a href="./news/">
+        All lab updates
+        <span aria-hidden="true">→</span>
+      </a>
+    </footer>
+
+  </div>
+</section>
+
+<style>
+  .news-section {
+    background: #17191e;
+    color: #fff;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .news-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 7vw, 7rem);
+  }
+
+  .news-header .eyebrow {
+    margin-bottom: 2rem;
+    color: #91a7ff;
+  }
+
+  h2 {
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  h2 span {
+    color: #8f949d;
+  }
+
+  .intro {
+    color: #aeb3bc;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid #393d45;
+    border-left: 1px solid #393d45;
+  }
+
+  .news-item {
+    position: relative;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    border-right: 1px solid #393d45;
+    border-bottom: 1px solid #393d45;
+    transition: background var(--transition-base);
+  }
+
+  a.news-item:hover {
+    background: #202329;
+  }
+
+  .news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    color: #7f858f;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .news-meta span:first-child {
+    font-family: var(--font-mono);
+  }
+
+  h3 {
+    max-width: 620px;
+    margin-top: auto;
+    padding-top: 5rem;
+    font-size: clamp(1.7rem, 2.7vw, 2.8rem);
+    font-weight: 650;
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .news-item p {
+    max-width: 580px;
+    margin-top: 1.25rem;
+    color: #aeb3bc;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .news-arrow {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    font-size: 1.25rem;
+    transition: transform var(--transition-fast);
+  }
+
+  a.news-item:hover .news-arrow {
+    transform: translate(4px, -4px);
+  }
+
+  .news-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 2.5rem;
+  }
+
+  .news-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .news-header {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .news-item {
+      min-height: 300px;
+    }
+  }
+</style>

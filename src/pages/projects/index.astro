@@ -1,0 +1,556 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const activeProjects = projects.filter(
+  (project) => project.data.status === 'active'
+);
+
+const completedProjects = projects.filter(
+  (project) => project.data.status === 'completed'
+);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Research projects at DiSSect Lab spanning distributed systems, edge intelligence, trustworthy computing, cybersecurity, and resilient infrastructure."
+>
+
+  <section class="projects-hero">
+    <div class="container hero-grid">
+
+      <div>
+        <p class="eyebrow">Projects</p>
+
+        <h1>
+          Research becomes{' '}
+          <span>real when systems are built.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          DiSSect projects translate research questions into
+          architectures, frameworks, algorithms, and working systems
+          designed around real performance, resource, and security constraints.
+        </p>
+
+        <div class="portfolio-meta">
+          <div>
+            <span>Active</span>
+            <strong>{String(activeProjects.length).padStart(2, '0')}</strong>
+          </div>
+
+          <div>
+            <span>Completed</span>
+            <strong>{String(completedProjects.length).padStart(2, '0')}</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {
+    activeProjects.length > 0 && (
+      <section class="active-section">
+        <div class="container">
+
+          <header class="section-heading">
+            <span>Current Research</span>
+            <span>Active Projects</span>
+          </header>
+
+          {
+            activeProjects.map((project, index) => (
+              <article class="featured-project">
+
+                <div class="project-number">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+
+                <div class="project-main">
+                  <div class="project-meta">
+                    <span>{project.data.sponsor}</span>
+                    <span>{project.data.period}</span>
+                    <span class="active-status">Active</span>
+                  </div>
+
+                  <h2>{project.data.shortTitle}</h2>
+
+                  <p class="summary">
+                    {project.data.summary}
+                  </p>
+                </div>
+
+                <div class="project-side">
+                  <div class="official-title">
+                    <span>Project</span>
+                    <p>{project.data.title}</p>
+                  </div>
+
+                  <div class="themes">
+                    <span>Themes</span>
+
+                    <ul>
+                      {
+                        project.data.themes.map((theme) => (
+                          <li>{theme}</li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                </div>
+
+              </article>
+            ))
+          }
+
+        </div>
+      </section>
+    )
+  }
+
+  <section class="archive-section">
+    <div class="container">
+
+      <header class="archive-header">
+        <div>
+          <p class="eyebrow">Research Portfolio</p>
+
+          <h2>
+            Selected completed
+            <span>projects.</span>
+          </h2>
+        </div>
+
+        <p>
+          Earlier DiSSect work established research directions in
+          resilient distributed computing, trustworthy edge-cloud
+          infrastructure, fog systems, and cyberinfrastructure.
+        </p>
+      </header>
+
+      <div class="archive-list">
+        {
+          completedProjects.map((project, index) => (
+            <article class="archive-project">
+
+              <div class="archive-number">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+
+              <div class="archive-main">
+                <p class="archive-period">
+                  {project.data.sponsor} · {project.data.period}
+                </p>
+
+                <h3>{project.data.shortTitle}</h3>
+
+                <p class="archive-summary">
+                  {project.data.summary}
+                </p>
+              </div>
+
+              <div class="archive-themes">
+                {
+                  project.data.themes.map((theme) => (
+                    <span>{theme}</span>
+                  ))
+                }
+              </div>
+
+            </article>
+          ))
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <section class="project-bridge">
+    <div class="container bridge-grid">
+
+      <div>
+        <p class="eyebrow">Research Connection</p>
+
+        <h2>
+          Every project connects back
+          <span>to a larger research question.</span>
+        </h2>
+      </div>
+
+      <div>
+        <p>
+          Explore the research directions behind these systems,
+          or examine the publications that report their technical results.
+        </p>
+
+        <div class="bridge-links">
+          <a href="../research/">
+            Research <span>→</span>
+          </a>
+
+          <a href="../publications/">
+            Publications <span>→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .projects-hero {
+    background: var(--color-bg);
+    padding-block: clamp(7rem, 11vw, 12rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.55fr);
+    gap: clamp(4rem, 9vw, 10rem);
+    align-items: end;
+  }
+
+  .projects-hero .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h1 {
+    max-width: 1000px;
+    font-size: clamp(4rem, 7vw, 7.4rem);
+    font-weight: 760;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  h1 span {
+    color: var(--color-text-soft);
+  }
+
+  .hero-side > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .portfolio-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 3rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .portfolio-meta > div {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
+
+  .portfolio-meta > div + div {
+    margin-left: 2rem;
+  }
+
+  .portfolio-meta span {
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .portfolio-meta strong {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .active-section {
+    background: #17191e;
+    color: white;
+    padding-block: clamp(5rem, 8vw, 8rem);
+  }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #393d45;
+    color: #7f858f;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .featured-project {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1.05fr) minmax(300px, 0.65fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    padding-block: clamp(4rem, 7vw, 7rem);
+  }
+
+  .project-number {
+    color: #777d88;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    color: #858b95;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .active-status {
+    color: #91a7ff;
+  }
+
+  .project-main h2 {
+    max-width: 700px;
+    margin-top: 2rem;
+    font-size: clamp(3rem, 5vw, 5.4rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .summary {
+    max-width: 680px;
+    margin-top: 2.5rem;
+    color: #aeb3bc;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .official-title,
+  .themes {
+    border-top: 1px solid #393d45;
+    padding-top: 1rem;
+  }
+
+  .official-title > span,
+  .themes > span {
+    color: #777d88;
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .official-title p {
+    margin-top: 1rem;
+    color: #aeb3bc;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .themes {
+    margin-top: 3rem;
+  }
+
+  .themes ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    list-style: none;
+  }
+
+  .themes li {
+    border: 1px solid #3d424b;
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: #aeb3bc;
+    font-size: 0.68rem;
+  }
+
+  .archive-section {
+    background: #f3f4f6;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .archive-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 7vw, 7rem);
+  }
+
+  .archive-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .archive-header h2 {
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  .archive-header h2 span {
+    color: var(--color-text-soft);
+  }
+
+  .archive-header > p {
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .archive-list {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .archive-project {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr) 320px;
+    gap: clamp(2rem, 5vw, 6rem);
+    padding-block: 3rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .archive-number {
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .archive-period {
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .archive-main h3 {
+    margin-top: 1rem;
+    font-size: clamp(2rem, 3.5vw, 3.7rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .archive-summary {
+    max-width: 650px;
+    margin-top: 1.3rem;
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .archive-themes {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .archive-themes span {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: var(--color-text-soft);
+    font-size: 0.68rem;
+  }
+
+  .project-bridge {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .project-bridge .eyebrow {
+    margin-bottom: 2rem;
+    color: #c7d2fe;
+  }
+
+  .project-bridge h2 {
+    font-size: clamp(3rem, 5.5vw, 5.7rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .project-bridge h2 span {
+    color: #b9c8ff;
+  }
+
+  .bridge-grid > div:last-child > p {
+    color: #dbe3ff;
+    line-height: 1.7;
+  }
+
+  .bridge-links {
+    margin-top: 2.5rem;
+    border-top: 1px solid #6f8df5;
+  }
+
+  .bridge-links a {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1rem;
+    border-bottom: 1px solid #6f8df5;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .archive-header,
+    .bridge-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-project,
+    .archive-project {
+      grid-template-columns: 45px minmax(0, 1fr);
+    }
+
+    .project-side,
+    .archive-themes {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .projects-hero {
+      padding-block: 5rem 6rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 15vw, 5rem);
+    }
+
+    .featured-project,
+    .archive-project {
+      grid-template-columns: 1fr;
+    }
+
+    .project-number,
+    .project-side,
+    .archive-number,
+    .archive-themes {
+      grid-column: 1;
+    }
+  }
+</style>

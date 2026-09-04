@@ -1,0 +1,292 @@
+---
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((project) => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="projects-section">
+  <div class="container">
+
+    <header class="projects-header">
+      <div>
+        <p class="eyebrow">Featured Projects</p>
+
+        <h2>
+          Research built around{' '}
+          <span>real systems and real constraints.</span>
+        </h2>
+      </div>
+
+      <p class="intro">
+        Selected DiSSect projects spanning trustworthy computing,
+        distributed infrastructure, edge systems, and resilient
+        real-world applications.
+      </p>
+    </header>
+
+    <div class="project-list">
+      {
+        projects.map((project, index) => (
+          <article class="project">
+
+            <div class="project-index">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+            </div>
+
+            <div class="project-main">
+              <div class="project-meta">
+                <span>{project.data.sponsor}</span>
+                <span>{project.data.period}</span>
+
+                <span
+                  class:list={[
+                    'status',
+                    { active: project.data.status === 'active' }
+                  ]}
+                >
+                  {project.data.status}
+                </span>
+              </div>
+
+              <h3>{project.data.shortTitle}</h3>
+
+              <p class="summary">
+                {project.data.summary}
+              </p>
+            </div>
+
+            <div class="project-side">
+              <p class="full-title">
+                {project.data.title}
+              </p>
+
+              <ul class="themes" aria-label="Project themes">
+                {
+                  project.data.themes.map((theme) => (
+                    <li>{theme}</li>
+                  ))
+                }
+              </ul>
+            </div>
+
+          </article>
+        ))
+      }
+    </div>
+
+    <footer class="projects-footer">
+      <span>
+        NSF-supported and externally funded research
+      </span>
+
+      <a href="./projects/">
+        View all projects
+        <span aria-hidden="true">→</span>
+      </a>
+    </footer>
+
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    background: #f3f4f6;
+    color: var(--color-text);
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .projects-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 6vw, 6rem);
+  }
+
+  .projects-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h2 {
+    max-width: 900px;
+    font-size: clamp(2.8rem, 5vw, 5.1rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  h2 span {
+    color: var(--color-text-soft);
+  }
+
+  .intro {
+    color: var(--color-text-soft);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .project-list {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1.1fr) minmax(300px, 0.7fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    padding-block: clamp(3rem, 5vw, 5rem);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .project-index {
+    padding-top: 0.35rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.25rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: var(--color-text-faint);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-text-faint);
+  }
+
+  .status.active {
+    color: var(--color-accent);
+  }
+
+  .status.active::before {
+    background: var(--color-accent);
+  }
+
+  h3 {
+    max-width: 680px;
+    font-size: clamp(2.3rem, 4vw, 4.25rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .summary {
+    max-width: 650px;
+    margin-top: 2rem;
+    color: var(--color-text-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .project-side {
+    padding-top: 0.25rem;
+  }
+
+  .full-title {
+    color: var(--color-text-soft);
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+
+  .themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 2rem;
+    list-style: none;
+  }
+
+  .themes li {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: var(--color-text-soft);
+    font-size: 0.68rem;
+    font-weight: 650;
+  }
+
+  .projects-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 2rem;
+    color: var(--color-text-soft);
+    font-size: 0.82rem;
+  }
+
+  .projects-footer > span {
+    color: var(--color-text-faint);
+  }
+
+  .projects-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .projects-footer a span {
+    transition: transform var(--transition-fast);
+  }
+
+  .projects-footer a:hover span {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 950px) {
+    .projects-header {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .intro {
+      max-width: 680px;
+    }
+
+    .project {
+      grid-template-columns: 45px minmax(0, 1fr);
+    }
+
+    .project-side {
+      grid-column: 2;
+      max-width: 650px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .project {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-index,
+    .project-side {
+      grid-column: 1;
+    }
+
+    .projects-footer {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -1,0 +1,745 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const withBase = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<BaseLayout
+  title="About"
+  description="About the Distributed Systems and Security Laboratory at CUNY, directed by Professor Saptarshi Debroy."
+>
+
+  <section class="about-hero">
+    <div class="container hero-grid">
+
+      <div>
+        <p class="eyebrow">About DiSSect</p>
+
+        <h1>
+          A lab for systems that must
+          <span class="line muted">work beyond ideal conditions.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          The Distributed Systems and Security Laboratory studies
+          intelligent, distributed, and trustworthy computing systems
+          designed to operate under real-world performance, resource,
+          reliability, and security constraints.
+        </p>
+
+        <div class="identity">
+          <span>DiSSect Lab</span>
+          <strong>CUNY · New York</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="mission-section">
+    <div class="container mission-grid">
+
+      <div>
+        <p class="eyebrow">Our Mission</p>
+      </div>
+
+      <div class="mission-copy">
+        <p>
+          Computing increasingly happens across
+          <strong>
+            devices, networks, edge infrastructure, cloud platforms,
+            datacenters, and intelligent services.
+          </strong>
+          DiSSect studies how those systems can remain responsive,
+          efficient, resilient, and secure as they become more distributed
+          and more complex.
+        </p>
+
+        <p>
+          The lab combines systems research, networking, machine learning,
+          security, and experimental evaluation to develop mechanisms that
+          can operate under practical constraints rather than assuming
+          perfect infrastructure or ideal environments.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="identity-section">
+    <div class="container">
+
+      <header class="section-header">
+        <div>
+          <p class="eyebrow">Research Identity</p>
+
+          <h2>
+            Distributed systems and security,
+            <span class="muted">viewed as one connected problem.</span>
+          </h2>
+        </div>
+
+        <p>
+          Performance, trust, security, and intelligence increasingly
+          interact across the same infrastructure. DiSSect studies those
+          interactions rather than treating them as isolated concerns.
+        </p>
+      </header>
+
+      <div class="identity-grid">
+
+        <article>
+          <span class="number">01</span>
+          <h3>Distributed</h3>
+          <p>
+            Computation spans heterogeneous devices, edge resources,
+            cloud infrastructure, and network domains.
+          </p>
+        </article>
+
+        <article>
+          <span class="number">02</span>
+          <h3>Intelligent</h3>
+          <p>
+            Machine learning and adaptive decision-making increasingly
+            determine how modern systems allocate resources and respond.
+          </p>
+        </article>
+
+        <article>
+          <span class="number">03</span>
+          <h3>Trustworthy</h3>
+          <p>
+            Systems must preserve dependable behavior despite uncertainty,
+            failures, changing conditions, and imperfect infrastructure.
+          </p>
+        </article>
+
+        <article>
+          <span class="number">04</span>
+          <h3>Secure</h3>
+          <p>
+            Programmable and collaborative systems create new attack
+            surfaces that require security to be considered by design.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="evolution-section">
+    <div class="container">
+
+      <header class="evolution-header">
+        <div>
+          <p class="eyebrow">Research Evolution</p>
+
+          <h2>
+            A research program shaped
+            <span class="muted">by changing infrastructure.</span>
+          </h2>
+        </div>
+
+        <p>
+          DiSSect's work has evolved alongside computing infrastructure,
+          while maintaining a consistent focus on distributed behavior,
+          resource management, resilience, and security.
+        </p>
+      </header>
+
+      <div class="timeline">
+
+        <article class="timeline-row">
+          <span class="timeline-number">01</span>
+
+          <div class="timeline-title">
+            <h3>Networks &amp; Resource Management</h3>
+          </div>
+
+          <p>
+            Early work examined wireless and networked systems,
+            resource allocation, measurement, and performance.
+          </p>
+        </article>
+
+        <article class="timeline-row">
+          <span class="timeline-number">02</span>
+
+          <div class="timeline-title">
+            <h3>Cloud &amp; Cyberinfrastructure</h3>
+          </div>
+
+          <p>
+            The research expanded toward distributed workflows,
+            Science DMZ environments, cloud systems, and end-to-end
+            performance and security assurance.
+          </p>
+        </article>
+
+        <article class="timeline-row">
+          <span class="timeline-number">03</span>
+
+          <div class="timeline-title">
+            <h3>Edge, Fog &amp; Resilience</h3>
+          </div>
+
+          <p>
+            Edge and fog computing introduced new work around
+            disaster response, heterogeneous resources, and resilient
+            distributed computation.
+          </p>
+        </article>
+
+        <article class="timeline-row">
+          <span class="timeline-number">04</span>
+
+          <div class="timeline-title">
+            <h3>Trustworthy Intelligent Systems</h3>
+          </div>
+
+          <p>
+            Current work increasingly connects intelligent edge systems,
+            distributed AI, trustworthy computing, privacy, and security.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="pi-section">
+    <div class="container pi-grid">
+
+      <div class="pi-intro">
+        <p class="eyebrow">Lab Director</p>
+
+        <h2>Saptarshi Debroy</h2>
+
+        <p class="role">
+          Associate Professor of Computer Science
+        </p>
+
+        <p class="affiliation">
+          Hunter College<br />
+          Doctoral Faculty, The Graduate Center<br />
+          City University of New York
+        </p>
+      </div>
+
+      <div class="pi-copy">
+        <p>
+          Professor Debroy founded and directs the Distributed Systems
+          and Security Laboratory at CUNY. His research spans distributed
+          computing, edge and cloud systems, trustworthy computing,
+          cyberinfrastructure security, networking, and related
+          data-driven system-management problems.
+        </p>
+
+        <div class="pi-links">
+          <a
+            href="https://www.cs.hunter.cuny.edu/~sdebroy/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Faculty page ↗
+          </a>
+
+          <a
+            href="https://scholar.google.com/citations?user=z1Lr_cUAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Scholar ↗
+          </a>
+
+          <a href={withBase('/people/')}>
+            Lab members →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="affiliation-section">
+    <div class="container affiliation-grid">
+
+      <div>
+        <p class="eyebrow">Academic Home</p>
+
+        <h2>
+          Hunter College
+          <span class="muted">&amp; The Graduate Center.</span>
+        </h2>
+      </div>
+
+      <div class="affiliation-details">
+        <div>
+          <span>University</span>
+          <strong>City University of New York</strong>
+        </div>
+
+        <div>
+          <span>Location</span>
+          <strong>New York, NY</strong>
+        </div>
+
+        <div>
+          <span>Discipline</span>
+          <strong>Computer Science</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="about-bridge">
+    <div class="container bridge-grid">
+
+      <div>
+        <p class="eyebrow">Explore DiSSect</p>
+
+        <h2>
+          From lab identity
+          <span class="muted">to research in action.</span>
+        </h2>
+      </div>
+
+      <div class="bridge-links">
+        <a href={withBase('/research/')}>
+          Research
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a href={withBase('/projects/')}>
+          Projects
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a href={withBase('/publications/')}>
+          Publications
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a href={withBase('/join/')}>
+          Join Us
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding-block: clamp(7rem, 11vw, 12rem);
+    background: var(--color-bg);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.55fr);
+    gap: clamp(4rem, 9vw, 10rem);
+    align-items: end;
+  }
+
+  .about-hero .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h1 {
+    max-width: 1050px;
+    font-size: clamp(4rem, 7.2vw, 7.5rem);
+    font-weight: 760;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  .line {
+    display: block;
+  }
+
+  .muted {
+    color: var(--color-text-soft);
+  }
+
+  .hero-side > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .identity {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .identity span {
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .identity strong {
+    font-size: 0.78rem;
+  }
+
+  .mission-section {
+    background: #17191e;
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 9rem);
+  }
+
+  .mission-section .eyebrow {
+    color: #91a7ff;
+  }
+
+  .mission-copy {
+    max-width: 1100px;
+  }
+
+  .mission-copy p {
+    color: #aeb3bc;
+    font-size: clamp(1.6rem, 3vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+  }
+
+  .mission-copy strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  .mission-copy p + p {
+    margin-top: 2.5rem;
+  }
+
+  .identity-section {
+    background: #f4f5f7;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .section-header,
+  .evolution-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 7vw, 7rem);
+  }
+
+  .section-header .eyebrow,
+  .evolution-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .section-header h2,
+  .evolution-header h2 {
+    max-width: 900px;
+    font-size: clamp(3rem, 5vw, 5.3rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  .section-header > p,
+  .evolution-header > p {
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .identity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border-strong);
+    border-left: 1px solid var(--color-border-strong);
+  }
+
+  .identity-grid article {
+    min-height: 300px;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    border-right: 1px solid var(--color-border-strong);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .number,
+  .timeline-number {
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .identity-grid h3 {
+    margin-top: 5rem;
+    font-size: clamp(2rem, 3.6vw, 3.8rem);
+    font-weight: 650;
+    letter-spacing: -0.05em;
+  }
+
+  .identity-grid p {
+    max-width: 520px;
+    margin-top: 1rem;
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .evolution-section {
+    background: var(--color-bg);
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .timeline {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 60px minmax(280px, 0.75fr) minmax(300px, 1fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    padding-block: 2.75rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .timeline-title h3 {
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 650;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+  }
+
+  .timeline-row > p {
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .pi-section {
+    background: #e8ecf3;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .pi-grid {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.8fr) minmax(350px, 1fr);
+    gap: clamp(4rem, 10vw, 11rem);
+  }
+
+  .pi-section .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .pi-intro h2 {
+    font-size: clamp(3.5rem, 6vw, 6.3rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+  }
+
+  .role {
+    margin-top: 1.5rem;
+    font-weight: 700;
+  }
+
+  .affiliation {
+    margin-top: 0.5rem;
+    color: var(--color-text-soft);
+    line-height: 1.65;
+  }
+
+  .pi-copy {
+    border-top: 1px solid var(--color-border-strong);
+    padding-top: 1.5rem;
+  }
+
+  .pi-copy > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    line-height: 1.7;
+  }
+
+  .pi-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .pi-links a {
+    border-bottom: 1px solid var(--color-text);
+    padding-bottom: 0.25rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .affiliation-section {
+    background: var(--color-bg);
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .affiliation-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.7fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .affiliation-section .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .affiliation-section h2 {
+    font-size: clamp(3rem, 5vw, 5.4rem);
+    font-weight: 700;
+    line-height: 0.97;
+    letter-spacing: -0.06em;
+  }
+
+  .affiliation-details {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .affiliation-details > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .affiliation-details span {
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .affiliation-details strong {
+    font-size: 0.8rem;
+    text-align: right;
+  }
+
+  .about-bridge {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.65fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .about-bridge .eyebrow {
+    margin-bottom: 2rem;
+    color: #c7d2fe;
+  }
+
+  .about-bridge h2 {
+    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .about-bridge .muted {
+    color: #b9c8ff;
+  }
+
+  .bridge-links {
+    border-top: 1px solid #6f8df5;
+  }
+
+  .bridge-links a {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1rem;
+    border-bottom: 1px solid #6f8df5;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .section-header,
+    .evolution-header,
+    .pi-grid,
+    .affiliation-grid,
+    .bridge-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mission-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .identity-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline-row {
+      grid-template-columns: 40px minmax(0, 1fr);
+    }
+
+    .timeline-row > p {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .about-hero {
+      padding-block: 5rem 6rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 15vw, 5rem);
+    }
+
+    .timeline-row {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline-row > p {
+      grid-column: 1;
+    }
+
+    .affiliation-details > div {
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .affiliation-details strong {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,0 +1,448 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const areas = (await getCollection('research'))
+  .filter((area) => area.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const base = import.meta.env.BASE_URL;
+
+const withBase = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<BaseLayout
+  title="Research"
+  description="Research at DiSSect Lab spans edge intelligence, distributed systems, trustworthy computing, and cybersecurity."
+>
+  <section class="research-hero">
+    <div class="container hero-grid">
+
+      <div class="hero-main">
+        <p class="eyebrow">
+          Research at DiSSect
+        </p>
+
+        <h1>
+          Systems must do more than{' '}
+          <span>work in the lab.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          We study computing systems that must make intelligent decisions,
+          coordinate across distributed infrastructure, and remain dependable
+          under real-world performance, resource, and security constraints.
+        </p>
+
+        <div class="hero-index">
+          <span>Research directions</span>
+          <strong>{String(areas.length).padStart(2, '0')}</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <div class="container manifesto-grid">
+
+      <p class="manifesto-label">
+        Our perspective
+      </p>
+
+      <p class="manifesto-text">
+        Modern applications increasingly cross boundaries between
+        <strong>devices, networks, edge infrastructure, cloud systems, and AI.</strong>
+        We investigate what happens when those systems must operate with
+        limited resources, uncertain conditions, adversarial behavior,
+        and strict requirements on latency, reliability, privacy, and trust.
+      </p>
+
+    </div>
+  </section>
+
+  <section class="areas">
+    <div class="container">
+
+      <div class="areas-top">
+        <span>Research directions</span>
+        <span>DiSSect Lab · CUNY</span>
+      </div>
+
+      {
+        areas.map((area) => (
+          <article class="area" id={area.id}>
+
+            <div class="area-number">
+              {area.data.number}
+            </div>
+
+            <div class="area-main">
+              <p class="area-tagline">
+                {area.data.tagline}
+              </p>
+
+              <h2>{area.data.title}</h2>
+
+              <p class="area-summary">
+                {area.data.summary}
+              </p>
+            </div>
+
+            <div class="area-side">
+              <div class="question">
+                <span>Research question</span>
+
+                <p>
+                  {area.data.question}
+                </p>
+              </div>
+
+              <div class="themes">
+                <span class="themes-label">Themes</span>
+
+                <ul>
+                  {
+                    area.data.themes.map((theme) => (
+                      <li>{theme}</li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </div>
+
+          </article>
+        ))
+      }
+
+    </div>
+  </section>
+
+  <section class="research-connect">
+    <div class="container connect-grid">
+
+      <div>
+        <p class="eyebrow">Research in Action</p>
+
+        <h2>
+          From research questions
+          <span>to working systems.</span>
+        </h2>
+      </div>
+
+      <div class="connect-side">
+        <p>
+          Explore the funded projects, systems, and publications that
+          turn these research directions into concrete technical work.
+        </p>
+
+        <div class="connect-links">
+          <a href={withBase('/projects/')}>
+            Projects <span aria-hidden="true">→</span>
+          </a>
+
+          <a href={withBase('/publications/')}>
+            Publications <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .research-hero {
+    padding-block: clamp(7rem, 11vw, 12rem);
+    background: var(--color-bg);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 10rem);
+    align-items: end;
+  }
+
+  .hero-main .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h1 {
+    max-width: 1000px;
+    font-size: clamp(4rem, 7.4vw, 7.7rem);
+    font-weight: 760;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  h1 span {
+    color: var(--color-text-soft);
+  }
+
+  .hero-side > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .hero-index {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-strong);
+    color: var(--color-text-faint);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .manifesto {
+    background: #17191e;
+    color: white;
+    padding-block: clamp(5rem, 8vw, 8rem);
+  }
+
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 9rem);
+  }
+
+  .manifesto-label {
+    color: #858b95;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .manifesto-text {
+    max-width: 1050px;
+    color: #aeb3bc;
+    font-size: clamp(1.7rem, 3.3vw, 3.6rem);
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+  }
+
+  .manifesto-text strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  .areas {
+    background: #f4f5f7;
+    padding-block: clamp(5rem, 8vw, 8rem);
+  }
+
+  .areas-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border-strong);
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .area {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1.05fr) minmax(300px, 0.72fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    padding-block: clamp(4rem, 7vw, 7rem);
+    border-bottom: 1px solid var(--color-border-strong);
+    scroll-margin-top: 110px;
+  }
+
+  .area-number {
+    padding-top: 0.3rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .area-tagline {
+    margin-bottom: 1.5rem;
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .area-main h2 {
+    font-size: clamp(2.8rem, 5vw, 5.5rem);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.06em;
+  }
+
+  .area-summary {
+    max-width: 680px;
+    margin-top: 2.5rem;
+    color: var(--color-text-soft);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.7;
+  }
+
+  .area-side {
+    padding-top: 0.25rem;
+  }
+
+  .question {
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .question > span,
+  .themes-label {
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .question p {
+    margin-top: 1.25rem;
+    font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+  }
+
+  .themes {
+    margin-top: 3rem;
+  }
+
+  .themes ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    list-style: none;
+  }
+
+  .themes li {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 0.45rem 0.72rem;
+    color: var(--color-text-soft);
+    font-size: 0.68rem;
+    font-weight: 650;
+  }
+
+  .research-connect {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .connect-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .research-connect .eyebrow {
+    margin-bottom: 2rem;
+    color: #c7d2fe;
+  }
+
+  .research-connect h2 {
+    max-width: 850px;
+    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .research-connect h2 span {
+    color: #b9c8ff;
+  }
+
+  .connect-side > p {
+    color: #dbe3ff;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .connect-links {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+    border-top: 1px solid #6f8df5;
+  }
+
+  .connect-links a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1rem;
+    border-bottom: 1px solid #6f8df5;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .connect-links span {
+    transition: transform var(--transition-fast);
+  }
+
+  .connect-links a:hover span {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .connect-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .manifesto-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .area {
+      grid-template-columns: 45px minmax(0, 1fr);
+    }
+
+    .area-side {
+      grid-column: 2;
+      max-width: 720px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .research-hero {
+      padding-block: 5rem 6rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 15vw, 5rem);
+    }
+
+    .area {
+      grid-template-columns: 1fr;
+    }
+
+    .area-number,
+    .area-side {
+      grid-column: 1;
+    }
+
+    .areas-top {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+  }
+</style>

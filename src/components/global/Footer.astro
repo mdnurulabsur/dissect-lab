@@ -1,0 +1,170 @@
+---
+import { siteConfig } from '../../config/site';
+
+const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
+
+const withBase = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <a href={base}>
+          <strong>{siteConfig.name}</strong>
+          <span>{siteConfig.fullName}</span>
+        </a>
+      </div>
+
+      <div class="footer-nav">
+        <p>Explore</p>
+
+        <nav aria-label="Footer navigation">
+          <ul>
+            {
+              siteConfig.navigation.map((item) => (
+                <li>
+                  <a href={withBase(item.href)}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-affiliation">
+        <p>Affiliation</p>
+
+        <address>
+          Hunter College<br />
+          The Graduate Center<br />
+          City University of New York<br />
+          New York, NY
+        </address>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>
+        © {year} {siteConfig.name}
+      </span>
+
+      <span>
+        Distributed Systems &amp; Security
+      </span>
+
+      <span>
+        CUNY
+      </span>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #0d0f12;
+    color: white;
+    padding-block: clamp(4rem, 7vw, 7rem) 2rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: minmax(260px, 1.3fr) 0.65fr 0.8fr;
+    gap: clamp(3rem, 8vw, 8rem);
+    padding-bottom: clamp(4rem, 7vw, 7rem);
+  }
+
+  .footer-brand a {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .footer-brand strong {
+    font-size: clamp(2.5rem, 4.5vw, 4.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+  }
+
+  .footer-brand span {
+    margin-top: 1rem;
+    color: #8e949e;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .footer-nav > p,
+  .footer-affiliation > p {
+    margin-bottom: 1.3rem;
+    color: #777d87;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-nav ul {
+    list-style: none;
+  }
+
+  .footer-nav li + li {
+    margin-top: 0.65rem;
+  }
+
+  .footer-nav a {
+    color: #c3c7ce;
+    font-size: 0.85rem;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-nav a:hover {
+    color: white;
+  }
+
+  address {
+    color: #9ba0a9;
+    font-size: 0.82rem;
+    font-style: normal;
+    line-height: 1.75;
+  }
+
+  .footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #2d3036;
+    color: #707680;
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 800px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-top,
+    .footer-bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      gap: 0.5rem;
+    }
+  }
+</style>

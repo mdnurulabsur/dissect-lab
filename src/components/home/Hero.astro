@@ -1,0 +1,253 @@
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div class="hero-main">
+      <p class="eyebrow hero-eyebrow">
+        Distributed Systems &amp; Security · CUNY
+      </p>
+
+      <h1>
+        Intelligent systems.<br />
+        Secure foundations.<br />
+        <span>Real-world resilience.</span>
+      </h1>
+
+      <p class="hero-description">
+        We design intelligent, resilient, and trustworthy computing systems
+        across edge, cloud, and networked environments.
+      </p>
+
+      <div class="hero-actions">
+        <a class="primary-link" href="./research/">
+          Explore our research
+          <span aria-hidden="true">↗</span>
+        </a>
+
+        <a class="secondary-link" href="./people/">
+          Meet the lab
+        </a>
+      </div>
+    </div>
+
+    <aside class="research-index" aria-label="Research areas">
+      <p class="index-label">Research directions</p>
+
+      <ol>
+        <li>
+          <span>01</span>
+          <strong>Edge Intelligence</strong>
+        </li>
+
+        <li>
+          <span>02</span>
+          <strong>Distributed Systems</strong>
+        </li>
+
+        <li>
+          <span>03</span>
+          <strong>Trustworthy Computing</strong>
+        </li>
+
+        <li>
+          <span>04</span>
+          <strong>Cybersecurity</strong>
+        </li>
+      </ol>
+
+      <p class="affiliation">
+        Hunter College<br />
+        The Graduate Center<br />
+        City University of New York
+      </p>
+    </aside>
+
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: calc(100svh - 88px);
+    display: flex;
+    align-items: center;
+    padding-block: clamp(3.75rem, 6vw, 6rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: center;
+  }
+
+  .hero-main {
+    max-width: 940px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+    color: var(--color-accent);
+  }
+
+  h1 {
+    font-size: clamp(3.6rem, 6.15vw, 6.5rem);
+    font-weight: 760;
+    line-height: 0.93;
+    letter-spacing: -0.068em;
+  }
+
+  h1 span {
+    color: var(--color-text-soft);
+  }
+
+  .hero-description {
+    max-width: 700px;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    color: var(--color-text-soft);
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    line-height: 1.42;
+    letter-spacing: -0.028em;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .primary-link,
+  .secondary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .primary-link {
+    border-bottom: 1px solid var(--color-text);
+    padding-bottom: 0.3rem;
+  }
+
+  .primary-link span {
+    transition: transform var(--transition-fast);
+  }
+
+  .primary-link:hover span {
+    transform: translate(3px, -3px);
+  }
+
+  .secondary-link {
+    color: var(--color-text-soft);
+  }
+
+  .research-index {
+    border-top: 1px solid var(--color-border-strong);
+    padding-top: 1rem;
+  }
+
+  .index-label {
+    margin-bottom: 1.7rem;
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .research-index ol {
+    list-style: none;
+  }
+
+  .research-index li {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.75rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .research-index li:first-child {
+    border-top: 0;
+  }
+
+  .research-index li span {
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .research-index strong {
+    font-size: 0.88rem;
+    font-weight: 650;
+  }
+
+  .affiliation {
+    margin-top: 3rem;
+    color: var(--color-text-faint);
+    font-size: 0.72rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 959px) {
+    .hero {
+      min-height: auto;
+      align-items: flex-start;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 5rem;
+    }
+
+    .research-index {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 3rem;
+    }
+
+    .index-label,
+    .affiliation {
+      grid-column: 1 / -1;
+    }
+
+    .research-index ol {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 2rem;
+    }
+
+    .affiliation {
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .hero {
+      padding-block: 4rem 5rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 16vw, 5rem);
+    }
+
+    .hero-actions {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .research-index {
+      display: block;
+    }
+
+    .research-index ol {
+      display: block;
+    }
+
+    .affiliation {
+      margin-top: 2.5rem;
+    }
+  }
+</style>

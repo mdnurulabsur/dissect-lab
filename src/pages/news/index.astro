@@ -1,0 +1,581 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const newsItems = (await getCollection('news'))
+  .sort(
+    (a, b) =>
+      b.data.date.getTime() - a.data.date.getTime()
+  );
+
+const featured = newsItems[0];
+const remaining = newsItems.slice(1);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric',
+  }).format(date);
+
+const shortDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  }).format(date);
+
+const categoryLabel: Record<string, string> = {
+  publication: 'Publication',
+  award: 'Award',
+  grant: 'Grant',
+  lab: 'Lab',
+  student: 'Student',
+  event: 'Event',
+};
+---
+
+<BaseLayout
+  title="News"
+  description="Latest publications, awards, milestones, events, and updates from the Distributed Systems and Security Laboratory at CUNY."
+>
+
+  <section class="news-hero">
+    <div class="container hero-grid">
+
+      <div>
+        <p class="eyebrow">News & Updates</p>
+
+        <h1>
+          What is happening
+          <span>at DiSSect.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          Publications, research milestones, student achievements,
+          awards, events, and other updates from the lab.
+        </p>
+
+        <div class="news-count">
+          <span>Updates currently indexed</span>
+
+          <strong>
+            {String(newsItems.length).padStart(2, '0')}
+          </strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {
+    featured && (
+      <section class="featured-news">
+        <div class="container">
+
+          <header class="section-label">
+            <span>Latest Update</span>
+            <span>{formatDate(featured.data.date)}</span>
+          </header>
+
+          {
+            featured.data.externalUrl ? (
+              <a
+                class="featured-story"
+                href={featured.data.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="story-meta">
+                  <span>
+                    {categoryLabel[featured.data.category]}
+                  </span>
+
+                  <span>
+                    {shortDate(featured.data.date)}
+                  </span>
+                </div>
+
+                <div class="story-main">
+                  <h2>{featured.data.title}</h2>
+
+                  {
+                    featured.data.summary && (
+                      <p>{featured.data.summary}</p>
+                    )
+                  }
+                </div>
+
+                <span class="story-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ) : (
+              <article class="featured-story">
+                <div class="story-meta">
+                  <span>
+                    {categoryLabel[featured.data.category]}
+                  </span>
+
+                  <span>
+                    {shortDate(featured.data.date)}
+                  </span>
+                </div>
+
+                <div class="story-main">
+                  <h2>{featured.data.title}</h2>
+
+                  {
+                    featured.data.summary && (
+                      <p>{featured.data.summary}</p>
+                    )
+                  }
+                </div>
+              </article>
+            )
+          }
+
+        </div>
+      </section>
+    )
+  }
+
+  <section class="news-archive">
+    <div class="container">
+
+      <header class="archive-header">
+        <div>
+          <p class="eyebrow">From the Lab</p>
+
+          <h2>
+            Recent updates and
+            <span>milestones.</span>
+          </h2>
+        </div>
+
+        <p>
+          A chronological record of research activity,
+          publications, student milestones, and lab developments.
+        </p>
+      </header>
+
+      <div class="news-list">
+        {
+          remaining.map((item, index) => {
+            const content = (
+              <>
+                <div class="news-number">
+                  {String(index + 2).padStart(2, '0')}
+                </div>
+
+                <div class="news-meta">
+                  <span>
+                    {categoryLabel[item.data.category]}
+                  </span>
+
+                  <time datetime={item.data.date.toISOString()}>
+                    {shortDate(item.data.date)}
+                  </time>
+                </div>
+
+                <div class="news-main">
+                  <h3>{item.data.title}</h3>
+
+                  {
+                    item.data.summary && (
+                      <p>{item.data.summary}</p>
+                    )
+                  }
+                </div>
+
+                <div class="news-action">
+                  {
+                    item.data.externalUrl
+                      ? <span aria-hidden="true">↗</span>
+                      : <span aria-hidden="true">—</span>
+                  }
+                </div>
+              </>
+            );
+
+            return item.data.externalUrl ? (
+              <a
+                class="news-row"
+                href={item.data.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {content}
+              </a>
+            ) : (
+              <article class="news-row">
+                {content}
+              </article>
+            );
+          })
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <section class="news-bridge">
+    <div class="container bridge-grid">
+
+      <div>
+        <p class="eyebrow">Research Output</p>
+
+        <h2>
+          Follow the work
+          <span>behind the updates.</span>
+        </h2>
+      </div>
+
+      <div>
+        <p>
+          Explore DiSSect's publications and research projects
+          for the technical work behind recent lab activity.
+        </p>
+
+        <div class="bridge-links">
+          <a href="../publications/">
+            Publications
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <a href="../projects/">
+            Projects
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .news-hero {
+    background: var(--color-bg);
+    padding-block: clamp(7rem, 11vw, 12rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.55fr);
+    gap: clamp(4rem, 9vw, 10rem);
+    align-items: end;
+  }
+
+  .news-hero .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h1 {
+    max-width: 950px;
+    font-size: clamp(4rem, 7.2vw, 7.5rem);
+    font-weight: 760;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  h1 span {
+    color: var(--color-text-soft);
+  }
+
+  .hero-side > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .news-count {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .news-count span {
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .news-count strong {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .featured-news {
+    background: #17191e;
+    color: white;
+    padding-block: clamp(5rem, 8vw, 8rem);
+  }
+
+  .section-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #393d45;
+    color: #7f858f;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .featured-story {
+    position: relative;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr) 40px;
+    gap: clamp(2rem, 6vw, 7rem);
+    padding-block: clamp(4rem, 7vw, 7rem);
+  }
+
+  a.featured-story:hover .story-arrow {
+    transform: translate(4px, -4px);
+  }
+
+  .story-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #858b95;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .story-main h2 {
+    max-width: 950px;
+    font-size: clamp(3rem, 5vw, 5.4rem);
+    font-weight: 700;
+    line-height: 0.97;
+    letter-spacing: -0.06em;
+  }
+
+  .story-main p {
+    max-width: 760px;
+    margin-top: 2rem;
+    color: #aeb3bc;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .story-arrow {
+    font-size: 1.3rem;
+    transition: transform var(--transition-fast);
+  }
+
+  .news-archive {
+    background: #f4f5f7;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .archive-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 7vw, 7rem);
+  }
+
+  .archive-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .archive-header h2 {
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  .archive-header h2 span {
+    color: var(--color-text-soft);
+  }
+
+  .archive-header > p {
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .news-list {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .news-row {
+    display: grid;
+    grid-template-columns: 50px 150px minmax(0, 1fr) 40px;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding-block: clamp(2.5rem, 4vw, 4rem);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  a.news-row {
+    transition:
+      padding-inline var(--transition-base),
+      background var(--transition-base);
+  }
+
+  a.news-row:hover {
+    padding-inline: 1rem;
+    background: #eceef2;
+  }
+
+  .news-number {
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .news-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .news-main h3 {
+    max-width: 900px;
+    font-size: clamp(1.8rem, 3vw, 3.1rem);
+    font-weight: 650;
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .news-main p {
+    max-width: 700px;
+    margin-top: 1rem;
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .news-action {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.2rem;
+  }
+
+  .news-bridge {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .news-bridge .eyebrow {
+    margin-bottom: 2rem;
+    color: #c7d2fe;
+  }
+
+  .news-bridge h2 {
+    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .news-bridge h2 span {
+    color: #b9c8ff;
+  }
+
+  .bridge-grid > div:last-child > p {
+    color: #dbe3ff;
+    line-height: 1.7;
+  }
+
+  .bridge-links {
+    margin-top: 2.5rem;
+    border-top: 1px solid #6f8df5;
+  }
+
+  .bridge-links a {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1rem;
+    border-bottom: 1px solid #6f8df5;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .archive-header,
+    .bridge-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-story {
+      grid-template-columns: 140px minmax(0, 1fr) 30px;
+    }
+
+    .news-row {
+      grid-template-columns: 40px minmax(0, 1fr) 30px;
+    }
+
+    .news-meta {
+      grid-column: 2;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .news-main {
+      grid-column: 2;
+    }
+
+    .news-action {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .news-hero {
+      padding-block: 5rem 6rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 15vw, 5rem);
+    }
+
+    .featured-story,
+    .news-row {
+      grid-template-columns: 1fr;
+    }
+
+    .story-meta,
+    .news-meta,
+    .news-main,
+    .news-action {
+      grid-column: 1;
+    }
+
+    .news-action {
+      justify-content: flex-start;
+    }
+  }
+</style>

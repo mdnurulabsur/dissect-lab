@@ -1,0 +1,390 @@
+---
+import { getCollection } from 'astro:content';
+
+const people = (await getCollection('people'))
+  .filter((person) => person.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const pi = people.find((person) => person.data.category === 'pi');
+
+const students = people.filter(
+  (person) => person.data.category === 'phd'
+);
+---
+
+<section class="people-section">
+  <div class="container">
+
+    <header class="people-header">
+      <div>
+        <p class="eyebrow">People</p>
+
+        <h2>
+          The people behind{' '}
+          <span>DiSSect.</span>
+        </h2>
+      </div>
+
+      <p class="intro">
+        A research group at CUNY working across distributed systems,
+        intelligent edge computing, trustworthy infrastructure,
+        networking, and cybersecurity.
+      </p>
+    </header>
+
+    <div class="people-grid">
+
+      {
+        pi && (
+          <article class="pi-card">
+            <div class="pi-label">
+              <span>Principal Investigator</span>
+            </div>
+
+            <div class="pi-content">
+              <h3>{pi.data.name}</h3>
+
+              <p class="pi-role">
+                {pi.data.role}
+              </p>
+
+              <p class="pi-affiliation">
+                {pi.data.affiliation}
+              </p>
+
+              <ul class="pi-interests">
+                {
+                  pi.data.interests.map((interest) => (
+                    <li>{interest}</li>
+                  ))
+                }
+              </ul>
+
+              <div class="pi-links">
+                {
+                  pi.data.website && (
+                    <a
+                      href={pi.data.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Faculty page ↗
+                    </a>
+                  )
+                }
+
+                {
+                  pi.data.scholar && (
+                    <a
+                      href={pi.data.scholar}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Google Scholar ↗
+                    </a>
+                  )
+                }
+              </div>
+            </div>
+          </article>
+        )
+      }
+
+      <div class="student-roster">
+
+        <div class="roster-heading">
+          <span>Current PhD Students</span>
+          <span>{String(students.length).padStart(2, '0')}</span>
+        </div>
+
+        <div class="student-list">
+          {
+            students.map((student, index) => (
+              <article class="student">
+
+                <span class="student-index">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <div class="student-main">
+                  <h3>{student.data.name}</h3>
+
+                  <p>
+                    {student.data.interests.join(' · ')}
+                  </p>
+                </div>
+
+                <div class="student-meta">
+                  <span>{student.data.role}</span>
+
+                  {
+                    student.data.joined && (
+                      <span>{student.data.joined}</span>
+                    )
+                  }
+                </div>
+
+              </article>
+            ))
+          }
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer class="people-footer">
+      <p>
+        Hunter College · The Graduate Center · CUNY
+      </p>
+
+      <a href="./people/">
+        Meet the full team
+        <span aria-hidden="true">→</span>
+      </a>
+    </footer>
+
+  </div>
+</section>
+
+<style>
+  .people-section {
+    background: #e8ecf3;
+    color: var(--color-text);
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .people-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4.5rem, 7vw, 7rem);
+  }
+
+  .people-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h2 {
+    max-width: 800px;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  h2 span {
+    color: var(--color-text-soft);
+  }
+
+  .intro {
+    color: var(--color-text-soft);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .people-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.35fr);
+    gap: clamp(4rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  .pi-card {
+    position: sticky;
+    top: 2rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .pi-label {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-border-strong);
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .pi-content {
+    padding-top: 2.5rem;
+  }
+
+  .pi-content h3 {
+    font-size: clamp(2.4rem, 4vw, 4.2rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+  }
+
+  .pi-role {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .pi-affiliation {
+    max-width: 360px;
+    margin-top: 0.45rem;
+    color: var(--color-text-soft);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .pi-interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    list-style: none;
+  }
+
+  .pi-interests li {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: var(--color-text-soft);
+    font-size: 0.68rem;
+    font-weight: 650;
+  }
+
+  .pi-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-top: 2.25rem;
+  }
+
+  .pi-links a {
+    border-bottom: 1px solid var(--color-text);
+    padding-bottom: 0.2rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .student-roster {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .roster-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-border-strong);
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .student {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 130px;
+    gap: 1.5rem;
+    align-items: start;
+    padding-block: 2rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .student-index {
+    padding-top: 0.2rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .student-main h3 {
+    font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+    font-weight: 650;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  .student-main p {
+    margin-top: 0.65rem;
+    color: var(--color-text-soft);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .student-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-top: 0.2rem;
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 650;
+    text-align: right;
+  }
+
+  .people-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .people-footer p {
+    color: var(--color-text-faint);
+    font-size: 0.8rem;
+  }
+
+  .people-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .people-footer a span {
+    transition: transform var(--transition-fast);
+  }
+
+  .people-footer a:hover span {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .people-header,
+    .people-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .people-header {
+      gap: 2.5rem;
+    }
+
+    .people-grid {
+      gap: 5rem;
+    }
+
+    .pi-card {
+      position: static;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .student {
+      grid-template-columns: 28px minmax(0, 1fr);
+    }
+
+    .student-meta {
+      grid-column: 2;
+      flex-direction: row;
+      gap: 1rem;
+      text-align: left;
+    }
+
+    .people-footer {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -1,0 +1,127 @@
+<section class="join-section">
+  <div class="container join-grid">
+
+    <div class="join-label">
+      <p class="eyebrow">Work With Us</p>
+      <span>CUNY · New York</span>
+    </div>
+
+    <div class="join-main">
+      <h2>
+        Curious about the systems
+        <span>we are building?</span>
+      </h2>
+
+      <p>
+        DiSSect brings together students and collaborators interested in
+        distributed systems, edge intelligence, trustworthy computing,
+        networking, and cybersecurity.
+      </p>
+
+      <div class="join-actions">
+        <a class="primary" href="./join/">
+          Explore opportunities
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a href="./research/">
+          Explore research
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .join-section {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 11vw, 11rem);
+  }
+
+  .join-grid {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: clamp(4rem, 9vw, 10rem);
+  }
+
+  .join-label .eyebrow {
+    color: #c7d2fe;
+  }
+
+  .join-label > span {
+    display: block;
+    margin-top: 1.25rem;
+    color: #c7d2fe;
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+  }
+
+  .join-main {
+    max-width: 1000px;
+  }
+
+  h2 {
+    font-size: clamp(3.2rem, 6.3vw, 6.7rem);
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.065em;
+  }
+
+  h2 span {
+    color: #b9c8ff;
+  }
+
+  .join-main > p {
+    max-width: 720px;
+    margin-top: 3rem;
+    color: #dbe3ff;
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    line-height: 1.65;
+  }
+
+  .join-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .join-actions a {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px solid white;
+    padding-bottom: 0.35rem;
+  }
+
+  .primary span {
+    transition: transform var(--transition-fast);
+  }
+
+  .primary:hover span {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 800px) {
+    .join-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .join-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+  }
+</style>

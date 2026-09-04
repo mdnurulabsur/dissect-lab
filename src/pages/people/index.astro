@@ -1,0 +1,725 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const people = await getCollection('people');
+
+const pi = people
+  .filter((person) => person.data.category === 'pi')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const students = people
+  .filter((person) => person.data.category === 'phd')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const alumni = people
+  .filter((person) => person.data.category === 'alumni')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="People"
+  description="Meet the faculty, PhD researchers, and alumni of the Distributed Systems and Security Laboratory at CUNY."
+>
+
+  <section class="people-hero">
+    <div class="container hero-grid">
+
+      <div>
+        <p class="eyebrow">People</p>
+
+        <h1>
+          Research is built
+          <span>by people.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          DiSSect brings together researchers working across distributed
+          systems, edge intelligence, trustworthy computing, networking,
+          machine learning, and cybersecurity.
+        </p>
+
+        <div class="team-count">
+          <div>
+            <span>Current PhD</span>
+            <strong>
+              {String(students.length).padStart(2, '0')}
+            </strong>
+          </div>
+
+          <div>
+            <span>Alumni</span>
+            <strong>
+              {String(alumni.length).padStart(2, '0')}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="pi-section">
+    <div class="container">
+
+      <header class="section-label">
+        <span>Principal Investigator</span>
+        <span>DiSSect Lab</span>
+      </header>
+
+      {
+        pi.map((person) => (
+          <article class="pi-profile">
+
+            <div class="pi-name">
+              <p class="person-number">01</p>
+
+              <h2>{person.data.name}</h2>
+
+              <p class="role">
+                {person.data.role}
+              </p>
+
+              <p class="affiliation">
+                {person.data.affiliation}
+              </p>
+            </div>
+
+            <div class="pi-research">
+              <span>Research areas</span>
+
+              <ul>
+                {
+                  person.data.interests.map((interest) => (
+                    <li>{interest}</li>
+                  ))
+                }
+              </ul>
+            </div>
+
+            <div class="pi-links">
+              <span>Links</span>
+
+              {
+                person.data.website && (
+                  <a
+                    href={person.data.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Faculty page ↗
+                  </a>
+                )
+              }
+
+              {
+                person.data.scholar && (
+                  <a
+                    href={person.data.scholar}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google Scholar ↗
+                  </a>
+                )
+              }
+            </div>
+
+          </article>
+        ))
+      }
+
+    </div>
+  </section>
+
+  <section class="students-section">
+    <div class="container">
+
+      <header class="students-header">
+        <div>
+          <p class="eyebrow">Current Researchers</p>
+
+          <h2>
+            PhD researchers at
+            <span>DiSSect.</span>
+          </h2>
+        </div>
+
+        <p>
+          Current doctoral researchers at the CUNY Graduate Center
+          working across the lab's research directions.
+        </p>
+      </header>
+
+      <div class="student-grid">
+        {
+          students.map((student, index) => (
+            <article class="student-card">
+
+              <div class="student-top">
+                <span class="number">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                {
+                  student.data.joined && (
+                    <span>{student.data.joined}</span>
+                  )
+                }
+              </div>
+
+              <div class="student-main">
+                <h3>{student.data.name}</h3>
+
+                <p class="student-role">
+                  {student.data.role}
+                </p>
+
+                <p class="student-affiliation">
+                  {student.data.affiliation}
+                </p>
+              </div>
+
+              <ul class="student-interests">
+                {
+                  student.data.interests.map((interest) => (
+                    <li>{interest}</li>
+                  ))
+                }
+              </ul>
+
+              {
+                (
+                  student.data.website ||
+                  student.data.scholar ||
+                  student.data.github
+                ) && (
+                  <div class="student-links">
+
+                    {
+                      student.data.website && (
+                        <a
+                          href={student.data.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Website ↗
+                        </a>
+                      )
+                    }
+
+                    {
+                      student.data.scholar && (
+                        <a
+                          href={student.data.scholar}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Scholar ↗
+                        </a>
+                      )
+                    }
+
+                    {
+                      student.data.github && (
+                        <a
+                          href={student.data.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          GitHub ↗
+                        </a>
+                      )
+                    }
+
+                  </div>
+                )
+              }
+
+            </article>
+          ))
+        }
+      </div>
+
+    </div>
+  </section>
+
+  {
+    alumni.length > 0 && (
+      <section class="alumni-section">
+        <div class="container">
+
+          <header class="alumni-header">
+            <p class="eyebrow">Alumni</p>
+
+            <h2>
+              Researchers who have
+              <span>moved forward.</span>
+            </h2>
+          </header>
+
+          <div class="alumni-list">
+            {
+              alumni.map((person, index) => (
+                <article class="alumni">
+
+                  <span class="alumni-number">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+
+                  <div>
+                    <h3>{person.data.name}</h3>
+
+                    <p>
+                      {person.data.role}
+                    </p>
+                  </div>
+
+                  <p class="alumni-research">
+                    {person.data.interests.join(' · ')}
+                  </p>
+
+                </article>
+              ))
+            }
+          </div>
+
+        </div>
+      </section>
+    )
+  }
+
+  <section class="join-bridge">
+    <div class="container bridge-grid">
+
+      <div>
+        <p class="eyebrow">Join DiSSect</p>
+
+        <h2>
+          Interested in working
+          <span>with the lab?</span>
+        </h2>
+      </div>
+
+      <div>
+        <p>
+          Learn about research directions, current opportunities,
+          and how to connect with the group.
+        </p>
+
+        <a href="../join/">
+          Explore opportunities
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .people-hero {
+    padding-block: clamp(7rem, 11vw, 12rem);
+    background: var(--color-bg);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.55fr);
+    gap: clamp(4rem, 9vw, 10rem);
+    align-items: end;
+  }
+
+  .people-hero .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h1 {
+    max-width: 950px;
+    font-size: clamp(4rem, 7.2vw, 7.4rem);
+    font-weight: 760;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  h1 span {
+    color: var(--color-text-soft);
+  }
+
+  .hero-side > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .team-count {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .team-count > div {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
+
+  .team-count span {
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .team-count strong {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .pi-section {
+    background: #17191e;
+    color: white;
+    padding-block: clamp(5rem, 8vw, 8rem);
+  }
+
+  .section-label {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #393d45;
+    color: #7f858f;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .pi-profile {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.7fr) 180px;
+    gap: clamp(3rem, 7vw, 8rem);
+    padding-top: clamp(4rem, 7vw, 7rem);
+  }
+
+  .person-number {
+    margin-bottom: 2rem;
+    color: #777d88;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .pi-name h2 {
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+  }
+
+  .role {
+    margin-top: 1.5rem;
+    font-weight: 700;
+  }
+
+  .affiliation {
+    max-width: 420px;
+    margin-top: 0.5rem;
+    color: #aeb3bc;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .pi-research,
+  .pi-links {
+    border-top: 1px solid #393d45;
+    padding-top: 1rem;
+  }
+
+  .pi-research > span,
+  .pi-links > span {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: #777d88;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .pi-research ul {
+    list-style: none;
+  }
+
+  .pi-research li {
+    padding-block: 0.65rem;
+    border-bottom: 1px solid #2c3036;
+    color: #c1c5cb;
+    font-size: 0.88rem;
+  }
+
+  .pi-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pi-links a {
+    padding-block: 0.65rem;
+    color: #c1c5cb;
+    font-size: 0.82rem;
+  }
+
+  .students-section {
+    background: #e8ecf3;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .students-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 7vw, 7rem);
+  }
+
+  .students-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .students-header h2 {
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  .students-header h2 span {
+    color: var(--color-text-soft);
+  }
+
+  .students-header > p {
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .student-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border-strong);
+    border-left: 1px solid var(--color-border-strong);
+  }
+
+  .student-card {
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    border-right: 1px solid var(--color-border-strong);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .student-top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .number {
+    font-family: var(--font-mono);
+  }
+
+  .student-main {
+    margin-top: auto;
+    padding-top: 4rem;
+  }
+
+  .student-main h3 {
+    font-size: clamp(2rem, 3.5vw, 3.8rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .student-role {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .student-affiliation {
+    margin-top: 0.35rem;
+    color: var(--color-text-soft);
+    font-size: 0.8rem;
+  }
+
+  .student-interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    list-style: none;
+  }
+
+  .student-interests li {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    color: var(--color-text-soft);
+    font-size: 0.68rem;
+  }
+
+  .student-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .alumni-section {
+    background: var(--color-bg);
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .alumni-header {
+    margin-bottom: 4rem;
+  }
+
+  .alumni-header .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  .alumni-header h2 {
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  .alumni-header h2 span {
+    color: var(--color-text-soft);
+  }
+
+  .alumni-list {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .alumni {
+    display: grid;
+    grid-template-columns: 60px minmax(260px, 0.7fr) minmax(280px, 1fr);
+    gap: 2rem;
+    padding-block: 2.5rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .alumni-number {
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .alumni h3 {
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 650;
+    letter-spacing: -0.045em;
+  }
+
+  .alumni div p,
+  .alumni-research {
+    margin-top: 0.5rem;
+    color: var(--color-text-soft);
+    font-size: 0.85rem;
+  }
+
+  .join-bridge {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .join-bridge .eyebrow {
+    margin-bottom: 2rem;
+    color: #c7d2fe;
+  }
+
+  .join-bridge h2 {
+    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .join-bridge h2 span {
+    color: #b9c8ff;
+  }
+
+  .bridge-grid > div:last-child p {
+    color: #dbe3ff;
+    line-height: 1.7;
+  }
+
+  .bridge-grid a {
+    display: inline-flex;
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+    border-bottom: 1px solid white;
+    padding-bottom: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .students-header,
+    .bridge-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pi-profile {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pi-name {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .student-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .people-hero {
+      padding-block: 5rem 6rem;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 15vw, 5rem);
+    }
+
+    .pi-profile,
+    .alumni {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

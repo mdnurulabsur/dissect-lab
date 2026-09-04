@@ -1,0 +1,561 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const publications = (await getCollection('publications'))
+  .sort((a, b) => {
+    if (b.data.year !== a.data.year) {
+      return b.data.year - a.data.year;
+    }
+
+    return a.data.order - b.data.order;
+  });
+
+const years = [...new Set(publications.map((p) => p.data.year))]
+  .sort((a, b) => b - a);
+
+const typeLabels: Record<string, string> = {
+  conference: 'Conference',
+  journal: 'Journal',
+  workshop: 'Workshop',
+  'book-chapter': 'Book Chapter',
+  preprint: 'Preprint',
+};
+
+const typeCounts = publications.reduce<Record<string, number>>(
+  (counts, publication) => {
+    const type = publication.data.type;
+    counts[type] = (counts[type] ?? 0) + 1;
+    return counts;
+  },
+  {},
+);
+---
+
+<BaseLayout
+  title="Publications"
+  description="Publications from DiSSect Lab across distributed systems, edge intelligence, trustworthy computing, networking, and cybersecurity."
+>
+
+  <section class="publications-hero">
+    <div class="container hero-grid">
+
+      <div>
+        <p class="eyebrow">Publications</p>
+
+        <h1>
+          Ideas tested,
+          <span>measured, and shared.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          Research from DiSSect spans distributed systems,
+          edge intelligence, networking, trustworthy computing,
+          machine learning, and cybersecurity.
+        </p>
+
+        <div class="publication-count">
+          <span>Publications currently indexed</span>
+
+          <strong>
+            {String(publications.length).padStart(2, '0')}
+          </strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="publication-index">
+    <div class="container index-grid">
+
+      <div>
+        <p class="index-label">Years</p>
+
+        <div class="year-links">
+          {
+            years.map((year) => (
+              <a href={`#year-${year}`}>
+                {year}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <p class="index-label">Current index</p>
+
+        <div class="type-summary">
+          {
+            Object.entries(typeCounts).map(([type, count]) => (
+              <div>
+                <span>{typeLabels[type] ?? type}</span>
+                <strong>{String(count).padStart(2, '0')}</strong>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="publication-archive">
+    <div class="container">
+
+      {
+        years.map((year) => {
+          const yearPublications = publications.filter(
+            (publication) => publication.data.year === year
+          );
+
+          return (
+            <section
+              class="year-section"
+              id={`year-${year}`}
+            >
+              <header class="year-header">
+                <h2>{year}</h2>
+
+                <span>
+                  {String(yearPublications.length).padStart(2, '0')}
+                  {' '}
+                  {yearPublications.length === 1 ? 'publication' : 'publications'}
+                </span>
+              </header>
+
+              <div class="year-publications">
+                {
+                  yearPublications.map((publication, index) => (
+                    <article class="publication">
+
+                      <div class="publication-number">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+
+                      <div class="publication-meta">
+                        <span>
+                          {typeLabels[publication.data.type]}
+                        </span>
+
+                        <span>
+                          {publication.data.venue}
+                        </span>
+                      </div>
+
+                      <div class="publication-main">
+                        <h3>
+                          {publication.data.title}
+                        </h3>
+
+                        <p class="authors">
+                          {publication.data.authors.join(', ')}
+                        </p>
+
+                        {
+                          publication.data.themes.length > 0 && (
+                            <ul class="themes">
+                              {
+                                publication.data.themes.map((theme) => (
+                                  <li>{theme}</li>
+                                ))
+                              }
+                            </ul>
+                          )
+                        }
+                      </div>
+
+                      <div class="publication-links">
+                        {
+                          publication.data.doi && (
+                            <a
+                              href={publication.data.doi}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              DOI ↗
+                            </a>
+                          )
+                        }
+
+                        {
+                          publication.data.pdf && (
+                            <a href={publication.data.pdf}>
+                              PDF ↗
+                            </a>
+                          )
+                        }
+
+                        {
+                          publication.data.code && (
+                            <a
+                              href={publication.data.code}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Code ↗
+                            </a>
+                          )
+                        }
+                      </div>
+
+                    </article>
+                  ))
+                }
+              </div>
+
+            </section>
+          );
+        })
+      }
+
+    </div>
+  </section>
+
+  <section class="scholar-bridge">
+    <div class="container bridge-grid">
+
+      <div>
+        <p class="eyebrow">Complete Record</p>
+
+        <h2>
+          Looking for the full
+          <span>publication history?</span>
+        </h2>
+      </div>
+
+      <div>
+        <p>
+          The website index will continue to be expanded.
+          Professor Debroy's Google Scholar profile provides the
+          broader publication record and citation history.
+        </p>
+
+        <a
+          href="https://scholar.google.com/citations?user=z1Lr_cUAAAAJ&hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Scholar
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .publications-hero {
+    background: var(--color-bg);
+    padding-block: clamp(7rem, 11vw, 12rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.55fr);
+    gap: clamp(4rem, 9vw, 10rem);
+    align-items: end;
+  }
+
+  .publications-hero .eyebrow {
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+  }
+
+  h1 {
+    max-width: 1000px;
+    font-size: clamp(4rem, 7.2vw, 7.5rem);
+    font-weight: 760;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  h1 span {
+    color: var(--color-text-soft);
+  }
+
+  .hero-side > p {
+    color: var(--color-text-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .publication-count {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .publication-count span {
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .publication-count strong {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .publication-index {
+    background: #17191e;
+    color: white;
+    padding-block: clamp(4rem, 6vw, 6rem);
+  }
+
+  .index-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(4rem, 10vw, 10rem);
+  }
+
+  .index-label {
+    margin-bottom: 1.5rem;
+    color: #7f858f;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .year-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .year-links a {
+    border: 1px solid #3b3f46;
+    border-radius: 999px;
+    padding: 0.55rem 0.85rem;
+    color: #c4c8cf;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .type-summary {
+    border-top: 1px solid #393d45;
+  }
+
+  .type-summary > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid #393d45;
+    color: #b5bac2;
+    font-size: 0.8rem;
+  }
+
+  .type-summary strong {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .publication-archive {
+    background: #f4f5f7;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .year-section {
+    scroll-margin-top: 110px;
+  }
+
+  .year-section + .year-section {
+    margin-top: clamp(6rem, 10vw, 10rem);
+  }
+
+  .year-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .year-header h2 {
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.07em;
+  }
+
+  .year-header span {
+    color: var(--color-text-faint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .publication {
+    display: grid;
+    grid-template-columns: 50px 150px minmax(0, 1fr) 90px;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding-block: clamp(2.5rem, 4vw, 4rem);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .publication-number {
+    color: var(--color-text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .publication-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: var(--color-text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .publication-main h3 {
+    max-width: 950px;
+    font-size: clamp(1.7rem, 2.8vw, 2.9rem);
+    font-weight: 650;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+  }
+
+  .authors {
+    margin-top: 1rem;
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    list-style: none;
+  }
+
+  .themes li {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 0.4rem 0.65rem;
+    color: var(--color-text-soft);
+    font-size: 0.65rem;
+  }
+
+  .publication-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .scholar-bridge {
+    background: var(--color-accent);
+    color: white;
+    padding-block: clamp(6rem, 10vw, 10rem);
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
+    gap: clamp(4rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .scholar-bridge .eyebrow {
+    margin-bottom: 2rem;
+    color: #c7d2fe;
+  }
+
+  .scholar-bridge h2 {
+    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+  }
+
+  .scholar-bridge h2 span {
+    color: #b9c8ff;
+  }
+
+  .bridge-grid > div:last-child p {
+    color: #dbe3ff;
+    line-height: 1.7;
+  }
+
+  .bridge-grid a {
+    display: inline-flex;
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+    border-bottom: 1px solid white;
+    padding-bottom: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .bridge-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .publication {
+      grid-template-columns: 40px minmax(0, 1fr) 70px;
+    }
+
+    .publication-meta {
+      grid-column: 2;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .publication-main {
+      grid-column: 2;
+    }
+
+    .publication-links {
+      grid-column: 3;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .index-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .publication {
+      grid-template-columns: 1fr;
+    }
+
+    .publication-number {
+      display: none;
+    }
+
+    .publication-meta,
+    .publication-main,
+    .publication-links {
+      grid-column: 1;
+    }
+
+    .publication-links {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+</style>
