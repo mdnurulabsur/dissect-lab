@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
@@ -29,7 +30,7 @@ const alumni = people
         <p class="eyebrow">People</p>
 
         <h1>
-          Research is built
+          Research is built{' '}
           <span>by people.</span>
         </h1>
       </div>
@@ -142,7 +143,7 @@ const alumni = people
           <p class="eyebrow">Current Researchers</p>
 
           <h2>
-            PhD researchers at
+            PhD researchers at{' '}
             <span>DiSSect.</span>
           </h2>
         </div>
@@ -255,7 +256,7 @@ const alumni = people
             <p class="eyebrow">Alumni</p>
 
             <h2>
-              Researchers who have
+              Researchers who have{' '}
               <span>moved forward.</span>
             </h2>
           </header>
@@ -298,7 +299,7 @@ const alumni = people
         <p class="eyebrow">Join DiSSect</p>
 
         <h2>
-          Interested in working
+          Interested in working{' '}
           <span>with the lab?</span>
         </h2>
       </div>
@@ -309,8 +310,8 @@ const alumni = people
           and how to connect with the group.
         </p>
 
-        <a href="../join/">
-          Explore opportunities
+        <a href={withBase('/join/')}>
+          Explore opportunities{' '}
           <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -322,7 +323,7 @@ const alumni = people
 
 <style>
   .people-hero {
-    padding-block: clamp(7rem, 11vw, 12rem);
+    padding-block: var(--space-hero-y);
     background: var(--color-bg);
   }
 
@@ -340,10 +341,10 @@ const alumni = people
 
   h1 {
     max-width: 950px;
-    font-size: clamp(4rem, 7.2vw, 7.4rem);
+    font-size: var(--text-page-hero);
     font-weight: 760;
-    line-height: 0.92;
-    letter-spacing: -0.07em;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
   }
 
   h1 span {
@@ -386,7 +387,7 @@ const alumni = people
   .pi-section {
     background: #17191e;
     color: white;
-    padding-block: clamp(5rem, 8vw, 8rem);
+    padding-block: var(--space-section-y-tight);
   }
 
   .section-label {
@@ -418,7 +419,7 @@ const alumni = people
   .pi-name h2 {
     font-size: clamp(3.5rem, 6vw, 6.5rem);
     font-weight: 700;
-    line-height: 0.92;
+    line-height: var(--leading-display);
     letter-spacing: -0.065em;
   }
 
@@ -476,7 +477,7 @@ const alumni = people
 
   .students-section {
     background: #e8ecf3;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .students-header {
@@ -484,7 +485,7 @@ const alumni = people
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(4rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .students-header .eyebrow {
@@ -493,7 +494,7 @@ const alumni = people
   }
 
   .students-header h2 {
-    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.98;
     letter-spacing: -0.06em;
@@ -588,7 +589,7 @@ const alumni = people
 
   .alumni-section {
     background: var(--color-bg);
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .alumni-header {
@@ -645,7 +646,7 @@ const alumni = people
   .join-bridge {
     background: var(--color-accent);
     color: white;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .bridge-grid {
@@ -661,7 +662,7 @@ const alumni = people
   }
 
   .join-bridge h2 {
-    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;

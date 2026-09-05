@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
@@ -6,10 +7,7 @@ const areas = (await getCollection('research'))
   .filter((area) => area.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
 
-const base = import.meta.env.BASE_URL;
 
-const withBase = (path: string) =>
-  `${base}${path.replace(/^\/+/, '')}`;
 ---
 
 <BaseLayout
@@ -128,7 +126,7 @@ const withBase = (path: string) =>
         <p class="eyebrow">Research in Action</p>
 
         <h2>
-          From research questions
+          From research questions{' '}
           <span>to working systems.</span>
         </h2>
       </div>
@@ -156,7 +154,7 @@ const withBase = (path: string) =>
 
 <style>
   .research-hero {
-    padding-block: clamp(7rem, 11vw, 12rem);
+    padding-block: var(--space-hero-y);
     background: var(--color-bg);
   }
 
@@ -174,10 +172,10 @@ const withBase = (path: string) =>
 
   h1 {
     max-width: 1000px;
-    font-size: clamp(4rem, 7.4vw, 7.7rem);
+    font-size: var(--text-page-hero);
     font-weight: 760;
-    line-height: 0.92;
-    letter-spacing: -0.07em;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
   }
 
   h1 span {
@@ -206,7 +204,7 @@ const withBase = (path: string) =>
   .manifesto {
     background: #17191e;
     color: white;
-    padding-block: clamp(5rem, 8vw, 8rem);
+    padding-block: var(--space-section-y-tight);
   }
 
   .manifesto-grid {
@@ -238,7 +236,7 @@ const withBase = (path: string) =>
 
   .areas {
     background: #f4f5f7;
-    padding-block: clamp(5rem, 8vw, 8rem);
+    padding-block: var(--space-section-y-tight);
   }
 
   .areas-top {
@@ -343,7 +341,7 @@ const withBase = (path: string) =>
   .research-connect {
     background: var(--color-accent);
     color: white;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .connect-grid {
@@ -360,7 +358,7 @@ const withBase = (path: string) =>
 
   .research-connect h2 {
     max-width: 850px;
-    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;

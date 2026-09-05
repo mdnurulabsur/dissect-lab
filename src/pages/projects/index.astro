@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
@@ -122,7 +123,7 @@ const completedProjects = projects.filter(
           <p class="eyebrow">Research Portfolio</p>
 
           <h2>
-            Selected completed
+            Selected completed{' '}
             <span>projects.</span>
           </h2>
         </div>
@@ -178,7 +179,7 @@ const completedProjects = projects.filter(
         <p class="eyebrow">Research Connection</p>
 
         <h2>
-          Every project connects back
+          Every project connects back{' '}
           <span>to a larger research question.</span>
         </h2>
       </div>
@@ -190,11 +191,11 @@ const completedProjects = projects.filter(
         </p>
 
         <div class="bridge-links">
-          <a href="../research/">
+          <a href={withBase('/research/')}>
             Research <span>→</span>
           </a>
 
-          <a href="../publications/">
+          <a href={withBase('/publications/')}>
             Publications <span>→</span>
           </a>
         </div>
@@ -208,7 +209,7 @@ const completedProjects = projects.filter(
 <style>
   .projects-hero {
     background: var(--color-bg);
-    padding-block: clamp(7rem, 11vw, 12rem);
+    padding-block: var(--space-hero-y);
   }
 
   .hero-grid {
@@ -225,10 +226,10 @@ const completedProjects = projects.filter(
 
   h1 {
     max-width: 1000px;
-    font-size: clamp(4rem, 7vw, 7.4rem);
+    font-size: var(--text-page-hero);
     font-weight: 760;
-    line-height: 0.92;
-    letter-spacing: -0.07em;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
   }
 
   h1 span {
@@ -274,7 +275,7 @@ const completedProjects = projects.filter(
   .active-section {
     background: #17191e;
     color: white;
-    padding-block: clamp(5rem, 8vw, 8rem);
+    padding-block: var(--space-section-y-tight);
   }
 
   .section-heading {
@@ -320,7 +321,7 @@ const completedProjects = projects.filter(
   .project-main h2 {
     max-width: 700px;
     margin-top: 2rem;
-    font-size: clamp(3rem, 5vw, 5.4rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;
@@ -378,7 +379,7 @@ const completedProjects = projects.filter(
 
   .archive-section {
     background: #f3f4f6;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .archive-header {
@@ -386,7 +387,7 @@ const completedProjects = projects.filter(
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(4rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .archive-header .eyebrow {
@@ -395,7 +396,7 @@ const completedProjects = projects.filter(
   }
 
   .archive-header h2 {
-    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.98;
     letter-spacing: -0.06em;
@@ -469,7 +470,7 @@ const completedProjects = projects.filter(
   .project-bridge {
     background: var(--color-accent);
     color: white;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .bridge-grid {
@@ -485,7 +486,7 @@ const completedProjects = projects.filter(
   }
 
   .project-bridge h2 {
-    font-size: clamp(3rem, 5.5vw, 5.7rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;

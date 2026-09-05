@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
@@ -44,7 +45,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
         <p class="eyebrow">Ways to Connect</p>
 
         <h2>
-          Different paths.
+          Different paths.{' '}
           <span class="muted">One research community.</span>
         </h2>
       </header>
@@ -126,7 +127,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
         <p class="eyebrow">Before Reaching Out</p>
 
         <h2>
-          Make the first message
+          Make the first message{' '}
           <span class="muted">useful.</span>
         </h2>
       </div>
@@ -177,7 +178,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
         <p class="eyebrow">Contact</p>
 
         <h2>
-          Start with a
+          Start with a{' '}
           <span class="muted">clear research connection.</span>
         </h2>
       </div>
@@ -225,29 +226,29 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
         <p class="eyebrow">Explore First</p>
 
         <h2>
-          Understand the work
+          Understand the work{' '}
           <span class="muted">before reaching out.</span>
         </h2>
       </div>
 
       <div class="bridge-links">
-        <a href="../research/">
-          Research
+        <a href={withBase('/research/')}>
+          Research{' '}
           <span aria-hidden="true">→</span>
         </a>
 
-        <a href="../projects/">
-          Projects
+        <a href={withBase('/projects/')}>
+          Projects{' '}
           <span aria-hidden="true">→</span>
         </a>
 
-        <a href="../publications/">
-          Publications
+        <a href={withBase('/publications/')}>
+          Publications{' '}
           <span aria-hidden="true">→</span>
         </a>
 
-        <a href="../people/">
-          People
+        <a href={withBase('/people/')}>
+          People{' '}
           <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -259,7 +260,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
 <style>
   .join-hero {
-    padding-block: clamp(7rem, 11vw, 12rem);
+    padding-block: var(--space-hero-y);
     background: var(--color-bg);
   }
 
@@ -277,10 +278,10 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
   h1 {
     max-width: 950px;
-    font-size: clamp(4rem, 7.2vw, 7.5rem);
+    font-size: var(--text-page-hero);
     font-weight: 760;
-    line-height: 0.92;
-    letter-spacing: -0.07em;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
   }
 
   .line {
@@ -321,11 +322,11 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
   .pathways {
     background: #17191e;
     color: white;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .section-header {
-    margin-bottom: clamp(4rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .section-header .eyebrow {
@@ -335,7 +336,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
   .section-header h2 {
     max-width: 950px;
-    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;
@@ -391,7 +392,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
   .before-contacting {
     background: #f4f5f7;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .contact-grid {
@@ -407,7 +408,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
   .before-contacting h2 {
     max-width: 650px;
-    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.97;
     letter-spacing: -0.06em;
@@ -438,7 +439,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
   .contact-section {
     background: var(--color-bg);
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .contact-main {
@@ -454,7 +455,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
 
   .contact-heading h2 {
     max-width: 650px;
-    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.97;
     letter-spacing: -0.06em;
@@ -506,7 +507,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
   .explore-bridge {
     background: var(--color-accent);
     color: white;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .bridge-grid {
@@ -522,7 +523,7 @@ const contactEmail = 'saptarshi.debroy@hunter.cuny.edu';
   }
 
   .explore-bridge h2 {
-    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;

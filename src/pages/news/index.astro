@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
@@ -47,7 +48,7 @@ const categoryLabel: Record<string, string> = {
         <p class="eyebrow">News & Updates</p>
 
         <h1>
-          What is happening
+          What is happening{' '}
           <span>at DiSSect.</span>
         </h1>
       </div>
@@ -150,7 +151,7 @@ const categoryLabel: Record<string, string> = {
           <p class="eyebrow">From the Lab</p>
 
           <h2>
-            Recent updates and
+            Recent updates and{' '}
             <span>milestones.</span>
           </h2>
         </div>
@@ -228,7 +229,7 @@ const categoryLabel: Record<string, string> = {
         <p class="eyebrow">Research Output</p>
 
         <h2>
-          Follow the work
+          Follow the work{' '}
           <span>behind the updates.</span>
         </h2>
       </div>
@@ -240,13 +241,13 @@ const categoryLabel: Record<string, string> = {
         </p>
 
         <div class="bridge-links">
-          <a href="../publications/">
-            Publications
+          <a href={withBase('/publications/')}>
+            Publications{' '}
             <span aria-hidden="true">→</span>
           </a>
 
-          <a href="../projects/">
-            Projects
+          <a href={withBase('/projects/')}>
+            Projects{' '}
             <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -260,7 +261,7 @@ const categoryLabel: Record<string, string> = {
 <style>
   .news-hero {
     background: var(--color-bg);
-    padding-block: clamp(7rem, 11vw, 12rem);
+    padding-block: var(--space-hero-y);
   }
 
   .hero-grid {
@@ -277,10 +278,10 @@ const categoryLabel: Record<string, string> = {
 
   h1 {
     max-width: 950px;
-    font-size: clamp(4rem, 7.2vw, 7.5rem);
+    font-size: var(--text-page-hero);
     font-weight: 760;
-    line-height: 0.92;
-    letter-spacing: -0.07em;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
   }
 
   h1 span {
@@ -318,7 +319,7 @@ const categoryLabel: Record<string, string> = {
   .featured-news {
     background: #17191e;
     color: white;
-    padding-block: clamp(5rem, 8vw, 8rem);
+    padding-block: var(--space-section-y-tight);
   }
 
   .section-label {
@@ -359,7 +360,7 @@ const categoryLabel: Record<string, string> = {
 
   .story-main h2 {
     max-width: 950px;
-    font-size: clamp(3rem, 5vw, 5.4rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.97;
     letter-spacing: -0.06em;
@@ -380,7 +381,7 @@ const categoryLabel: Record<string, string> = {
 
   .news-archive {
     background: #f4f5f7;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .archive-header {
@@ -388,7 +389,7 @@ const categoryLabel: Record<string, string> = {
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(4rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .archive-header .eyebrow {
@@ -397,7 +398,7 @@ const categoryLabel: Record<string, string> = {
   }
 
   .archive-header h2 {
-    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.98;
     letter-spacing: -0.06em;
@@ -477,7 +478,7 @@ const categoryLabel: Record<string, string> = {
   .news-bridge {
     background: var(--color-accent);
     color: white;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .bridge-grid {
@@ -493,7 +494,7 @@ const categoryLabel: Record<string, string> = {
   }
 
   .news-bridge h2 {
-    font-size: clamp(3rem, 5.5vw, 5.8rem);
+    font-size: var(--text-section-xl);
     font-weight: 700;
     line-height: 0.96;
     letter-spacing: -0.06em;

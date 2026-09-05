@@ -197,3 +197,38 @@ ol {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* =========================================================
+   DiSSect — Site-wide Vertical Rhythm
+   ========================================================= */
+
+:root {
+  --space-hero-y: clamp(5.5rem, 8vw, 8.5rem);
+  --space-section-y: clamp(5rem, 8vw, 8rem);
+  --space-section-y-tight: clamp(4rem, 6vw, 6rem);
+
+  --space-section-heading: clamp(3.5rem, 5.5vw, 5.5rem);
+  --space-content-gap: clamp(2.5rem, 4vw, 4rem);
+}
+
+/* =========================================================
+   DiSSect — Typography Scale
+   ========================================================= */
+
+:root {
+  --text-page-hero: clamp(3.7rem, 6.5vw, 6.9rem);
+  --text-section-xl: clamp(2.9rem, 4.8vw, 5rem);
+  --text-section-lg: clamp(2.4rem, 4vw, 4.2rem);
+
+  --leading-display: 0.94;
+  --tracking-display: -0.062em;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}

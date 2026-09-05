@@ -1,3 +1,7 @@
+---
+import { withBase } from '../../utils/paths';
+---
+
 <section class="research-section">
   <div class="container">
 
@@ -6,7 +10,7 @@
         <p class="eyebrow">Research</p>
 
         <h2>
-          Computing systems that remain
+          Computing systems that remain{' '}
           <span>intelligent, dependable, and secure.</span>
         </h2>
       </div>
@@ -20,7 +24,7 @@
 
     <div class="research-list">
 
-      <a class="research-row" href="./research/">
+      <a class="research-row" href={withBase('/research/')}>
         <span class="number">01</span>
 
         <div class="research-content">
@@ -34,7 +38,7 @@
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
 
-      <a class="research-row" href="./research/">
+      <a class="research-row" href={withBase('/research/')}>
         <span class="number">02</span>
 
         <div class="research-content">
@@ -48,7 +52,7 @@
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
 
-      <a class="research-row" href="./research/">
+      <a class="research-row" href={withBase('/research/')}>
         <span class="number">03</span>
 
         <div class="research-content">
@@ -62,7 +66,7 @@
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
 
-      <a class="research-row" href="./research/">
+      <a class="research-row" href={withBase('/research/')}>
         <span class="number">04</span>
 
         <div class="research-content">
@@ -79,8 +83,8 @@
     </div>
 
     <div class="section-footer">
-      <a href="./research/">
-        Explore all research
+      <a href={withBase('/research/')}>
+        Explore all research{' '}
         <span aria-hidden="true">→</span>
       </a>
     </div>
@@ -92,7 +96,7 @@
   .research-section {
     background: var(--color-text);
     color: var(--color-bg);
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .section-header {
@@ -100,7 +104,7 @@
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(5rem, 8vw, 8rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .eyebrow {

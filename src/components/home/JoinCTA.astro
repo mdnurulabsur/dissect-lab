@@ -1,3 +1,7 @@
+---
+import { withBase } from '../../utils/paths';
+---
+
 <section class="join-section">
   <div class="container join-grid">
 
@@ -8,7 +12,7 @@
 
     <div class="join-main">
       <h2>
-        Curious about the systems
+        Curious about the systems{' '}
         <span>we are building?</span>
       </h2>
 
@@ -19,12 +23,12 @@
       </p>
 
       <div class="join-actions">
-        <a class="primary" href="./join/">
-          Explore opportunities
+        <a class="primary" href={withBase('/join/')}>
+          Explore opportunities{' '}
           <span aria-hidden="true">→</span>
         </a>
 
-        <a href="./research/">
+        <a href={withBase('/research/')}>
           Explore research
         </a>
       </div>

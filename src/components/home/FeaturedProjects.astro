@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
@@ -81,8 +82,8 @@ const projects = (await getCollection('projects'))
         NSF-supported and externally funded research
       </span>
 
-      <a href="./projects/">
-        View all projects
+      <a href={withBase('/projects/')}>
+        View all projects{' '}
         <span aria-hidden="true">→</span>
       </a>
     </footer>
@@ -94,7 +95,7 @@ const projects = (await getCollection('projects'))
   .projects-section {
     background: #f3f4f6;
     color: var(--color-text);
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .projects-header {

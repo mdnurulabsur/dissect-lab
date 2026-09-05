@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import { getCollection } from 'astro:content';
 
 const newsItems = (await getCollection('news'))
@@ -89,8 +90,8 @@ const formatDate = (date: Date) =>
     </div>
 
     <footer class="news-footer">
-      <a href="./news/">
-        All lab updates
+      <a href={withBase('/news/')}>
+        All lab updates{' '}
         <span aria-hidden="true">→</span>
       </a>
     </footer>
@@ -102,7 +103,7 @@ const formatDate = (date: Date) =>
   .news-section {
     background: #17191e;
     color: #fff;
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .news-header {
@@ -110,7 +111,7 @@ const formatDate = (date: Date) =>
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(4rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .news-header .eyebrow {

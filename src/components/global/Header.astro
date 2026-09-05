@@ -1,10 +1,8 @@
 ---
+import { withBase } from '../../utils/paths';
 import { siteConfig } from '../../config/site';
 
-const base = import.meta.env.BASE_URL;
 
-const withBase = (path: string) =>
-  `${base}${path.replace(/^\/+/, '')}`;
 
 const currentPath = Astro.url.pathname;
 ---
@@ -12,7 +10,7 @@ const currentPath = Astro.url.pathname;
 <header class="site-header">
   <div class="container header-inner">
 
-    <a class="brand" href={base} aria-label={`${siteConfig.name} home`}>
+    <a class="brand" href={withBase('/')} aria-label={`${siteConfig.name} home`}>
       <span class="brand-name">{siteConfig.name}</span>
       <span class="brand-full">{siteConfig.fullName}</span>
     </a>
@@ -24,7 +22,7 @@ const currentPath = Astro.url.pathname;
             const href = withBase(item.href);
             const isActive =
               currentPath === href ||
-              (href !== base && currentPath.startsWith(href));
+              (href !== withBase('/') && currentPath.startsWith(href));
 
             return (
               <li>

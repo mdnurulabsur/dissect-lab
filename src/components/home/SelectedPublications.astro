@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import { getCollection } from 'astro:content';
 
 const publications = (await getCollection('publications'))
@@ -71,8 +72,8 @@ const publications = (await getCollection('publications'))
     </div>
 
     <footer class="publications-footer">
-      <a href="./publications/">
-        View all publications
+      <a href={withBase('/publications/')}>
+        View all publications{' '}
         <span aria-hidden="true">→</span>
       </a>
     </footer>
@@ -84,7 +85,7 @@ const publications = (await getCollection('publications'))
   .publications-section {
     background: var(--color-bg);
     color: var(--color-text);
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .publications-header {
@@ -92,7 +93,7 @@ const publications = (await getCollection('publications'))
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(4rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .publications-header .eyebrow {

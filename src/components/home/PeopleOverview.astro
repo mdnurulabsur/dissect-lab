@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../utils/paths';
 import { getCollection } from 'astro:content';
 
 const people = (await getCollection('people'))
@@ -138,8 +139,8 @@ const students = people.filter(
         Hunter College · The Graduate Center · CUNY
       </p>
 
-      <a href="./people/">
-        Meet the full team
+      <a href={withBase('/people/')}>
+        Meet the full team{' '}
         <span aria-hidden="true">→</span>
       </a>
     </footer>
@@ -151,7 +152,7 @@ const students = people.filter(
   .people-section {
     background: #e8ecf3;
     color: var(--color-text);
-    padding-block: clamp(6rem, 10vw, 10rem);
+    padding-block: var(--space-section-y);
   }
 
   .people-header {
@@ -159,7 +160,7 @@ const students = people.filter(
     grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.55fr);
     gap: clamp(4rem, 9vw, 9rem);
     align-items: end;
-    margin-bottom: clamp(4.5rem, 7vw, 7rem);
+    margin-bottom: var(--space-section-heading);
   }
 
   .people-header .eyebrow {

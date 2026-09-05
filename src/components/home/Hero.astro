@@ -1,3 +1,7 @@
+---
+import { withBase } from '../../utils/paths';
+---
+
 <section class="hero">
   <div class="container hero-grid">
 
@@ -18,12 +22,12 @@
       </p>
 
       <div class="hero-actions">
-        <a class="primary-link" href="./research/">
-          Explore our research
+        <a class="primary-link" href={withBase('/research/')}>
+          Explore our research{' '}
           <span aria-hidden="true">↗</span>
         </a>
 
-        <a class="secondary-link" href="./people/">
+        <a class="secondary-link" href={withBase('/people/')}>
           Meet the lab
         </a>
       </div>
