@@ -1,11 +1,13 @@
 ---
-import { withBase } from '../../utils/paths';
 import { siteConfig } from '../../config/site';
-
-
+import { withBase } from '../../utils/paths';
 
 const currentPath = Astro.url.pathname;
+
+const homeHref = withBase('/');
 ---
+
+
 
 <header class="site-header">
   <div class="container header-inner">
